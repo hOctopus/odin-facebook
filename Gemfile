@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Set environment variables
+gem 'figaro'
+
 # Flexible authentication system for Rails across the entire stack
 gem 'devise'
 # Use ActiveModel has_secure_password
@@ -39,20 +42,25 @@ gem 'devise'
 # Send logs to stdout and deliver assets directly for twelve-factor apps
 gem 'rails_12factor', group: :production
 
+# Thread-safe ruby library which can be used to monitor directories for changes on Windows.
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+
+# Access an IRB console on exception pages or by using <%= console %> in views
+gem 'web-console', '~> 2.0', group: :development
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
   # Speed up development with the Spring app preloader for Rails
   gem 'spring'
+  # Automatic, intelligent tests using the MiniTest framework
+  gem 'guard'
+  gem 'guard-minitest'
 end
 
 group :test do
   # Make tests colorful with MiniTest Reporters!
   gem 'minitest-reporters'
-  # Automatic, intelligent tests using the MiniTest framework
-  gem 'guard-minitest', '2.3.1'
   # Take advantage of the Rails.backtrace_cleaner when using MiniTest
   gem 'mini_backtrace'
 end
