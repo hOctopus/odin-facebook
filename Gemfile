@@ -53,16 +53,15 @@ group :development, :test do
   gem 'byebug'
   # Speed up development with the Spring app preloader for Rails
   gem 'spring'
-  # Automatic, intelligent tests using the MiniTest framework
-  gem 'guard'
-  gem 'guard-minitest'
 end
 
 group :test do
   # Make tests colorful with MiniTest Reporters!
-  gem 'minitest-reporters'
+  gem 'minitest-reporters', '1.0.5'
   # Take advantage of the Rails.backtrace_cleaner when using MiniTest
-  gem 'mini_backtrace'
+  gem 'mini_backtrace',     '0.1.3'
+  # Automatic, intelligent tests using the MiniTest framework
+  gem 'guard-minitest',     '2.3.1'
 end
 
 
