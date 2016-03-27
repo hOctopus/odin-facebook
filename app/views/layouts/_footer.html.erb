@@ -1,13 +1,16 @@
 <footer class="footer">
-  <small>
-    <a href="http://www.theodinproject.com/ruby-on-rails/final-project?ref=lc-pb">
-    Odin Facebook</a> at <a href="http://www.theodinproject.com">The Odin
-    Project</a>
-  </small>
-  <nav>
-    <ul>
-      <li><%= link_to "About",    about_path %></li>
-      <li><%= link_to "Contact",  contact_path %></li>
-    </ul>
-  </nav>
+  <div id="user_nav">
+    <% if user_signed_in? %>
+      Signed in as <%= current_user.email %>. Not you?
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> or
+      <%= link_to "Sign in", new_user_session_path %>
+    <% end %>
+    <small>
+      <a href="http://www.theodinproject.com/ruby-on-rails/final-project?ref=lc-pb">
+      Odin Facebook</a> at <a href="http://www.theodinproject.com">The Odin
+      Project</a>
+    </small>
+  </div>
 </footer>
