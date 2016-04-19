@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'users/index'
+
+  get 'users/show'
+
   get 'friendships/new'
 
   get 'friendships/create'
