@@ -30,6 +30,10 @@ gem 'figaro'
 
 # Flexible authentication system for Rails across the entire stack
 gem 'devise'
+
+# Open emails in browser
+gem 'letter_opener'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
