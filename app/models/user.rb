@@ -4,17 +4,21 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :friend_relationships, class_name:   "Relationship",
-                                  foreign_key:  "friend_id",
-                                  dependent:    :destroy
-  has_many :friends_with, through: :friend_relationships, source: :friended
+  has_many :active_relationships,   class_name:   "Relationship",
+                                    foreign_key:  "friend_id",
+                                    dependent:    :destroy
+  has_many :passive_relationships,  class_name:   "Relationship",
+                                    foreign_key:  "friended_id",
+                                    dependent:    :destroy
+  has_many  :friends_with,  through: :active_relationships,   source: :friended
+  has_many  :friends,       through: :passive_relationships
 
   def friend(other_user)
-    friend_relationships.create(friended_id: :other_user.id)
+    active_relationships.create(friended_id: :other_user.id)
   end
 
   def unfriend(other_user)
-    friend_relationships.find_by(friended_id: :other_user.id).destroy
+    active_relationships.find_by(friended_id: :other_user.id).destroy
   end
 
   def friends_with?(other_user)
