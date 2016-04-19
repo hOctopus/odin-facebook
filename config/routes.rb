@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'friendships/new'
+
+  get 'friendships/create'
+
+  get 'friendships/edit'
+
+  get 'friendships/update'
+
+  get 'friendships/destroy'
+
+  get 'friendships/index'
+
+  get 'friendships/show'
+
   devise_for :users
   root 'static_pages#home'
   get 'help'    => 'static_pages#help'

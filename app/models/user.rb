@@ -12,17 +12,17 @@ class User < ActiveRecord::Base
                                   foreign_key:  "requested_id",
                                   dependent:    :destroy
 
-  has_many :friends,        -> where("friendships.accepted" => true),
+  has_many :friends,        -> { where("friendships.accepted" => true) },
                             through: :friendships,
                             source: :requested
-  has_many :mutual_friends, -> where("friendships.accepted" => true),
+  has_many :mutual_friends, -> { where("friendships.accepted" => true) },
                             through:  :mutual_relationships,
                             source:   :requester
 
-  has_many :sent_requests,      -> where("friendships.accepted" => false),
+  has_many :sent_requests,      -> { where("friendships.accepted" => false) },
                                 through:  :friendships,
                                 source:   :requested
-  has_many :received_requests,  -> where("friendships.accepted" => false),
+  has_many :received_requests,  -> { where("friendships.accepted" => false) },
                                 through:  :mutual_friendships,
                                 source:   :requester
 
