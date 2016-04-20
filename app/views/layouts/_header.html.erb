@@ -3,6 +3,23 @@
     <%= link_to "Odin Facebook", root_path, class: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <span class="glyphicon glyphicon-heart"></span>
+              <span class="badge"><%= current_user.received_requests.count %></span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu navbar-inverse" role="menu">
+              <% current_user.received_requests.each do |request| %>
+                <li><%= render 'users/user', user: request %></li>
+                <li class="divider"></li>
+              <% end %>
+            </ul>
+          </li>
+          <li><%= link_to "Profile", current_user %></li>
+          <li><%= link_to "Browse users", users_path %></li>
+        <% end %>
         <li><%= link_to "Home",     root_path %></li>
         <li><%= link_to "Help",     help_path %></li>
         <li><%= link_to "About",    about_path %></li>

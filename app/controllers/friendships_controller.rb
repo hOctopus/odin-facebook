@@ -38,6 +38,11 @@ class FriendshipsController < ApplicationController
     redirect_to root_url
   end
 
+  def index
+    @friendship = Friendship.find_by(id: params[:id])
+    @friends = @user.friends.all.paginate(page: params[:page])
+  end
+
   private
     def friend_wanted?
       @friendship = Friendship.find_by(id: params[:id])

@@ -5,5 +5,9 @@
     This is the Rails Facebook application project for
     <a href="http://www.theodinproject.com">The Odin Project</a>.
   </h2>
-  <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+  <% unless user_signed_in? %>
+    <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+  <% else %>
+    <%= link_to "Go to profile", current_user, class: "btn btn-lg btn-primary" %>
+  <% end %>
 </div>
