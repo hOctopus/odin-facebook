@@ -5,8 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :friendships,          class_name:   "Friendship",
-                                  foreign_key:  "requester_id",
+  has_many :friendships,          foreign_key:  "requester_id",
                                   dependent:    :destroy
   has_many :mutual_friendships,   class_name:   "Friendship",
                                   foreign_key:  "requested_id",
@@ -16,7 +15,7 @@ class User < ActiveRecord::Base
                             through: :friendships,
                             source: :requested
   has_many :mutual_friends, -> { where("friendships.accepted" => true) },
-                            through:  :mutual_relationships,
+                            through:  :mutual_friendships,
                             source:   :requester
 
   has_many :sent_requests,      -> { where("friendships.accepted" => false) },
@@ -31,10 +30,15 @@ class User < ActiveRecord::Base
   end
 
   def request_sent(other_user)
-    friends.find_by(requested_id: other_user.id, accepted: false)
+    friendships.find_by(requested_id: other_user, accepted: false)
   end
 
   def request_received(other_user)
-    mutual_friends.find_by(requester_id: other_user.id, accepted: false)
+    mutual_friendships.find_by(requester_id: other_user, accepted: false)
+  end
+
+  def find_accepted_request(other_user)
+    friendships.where("requester_id=? OR requested_id=? AND accepted=true",
+                       other_user, other_user).limit(1).first
   end
 end

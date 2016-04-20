@@ -1,21 +1,13 @@
 class FriendshipsController < ApplicationController
   before_action :friend_wanted?, only: [:update, :destroy]
 
-  def new
-    @friendship = Friendship.new
-  end
-
   def create
-    @friendship = Friendship.new(requested_id: params[]:requested_id],
+    @friendship = Friendship.new(requested_id: params[:requested_id],
                                  requester_id: params[:requester_id],
                                  accepted: false)
     @friendship.save
     flash[:success] = "Friend request sent! :)"
     redirect_to root_url
-  end
-
-  def edit
-    @friendship = Friendship.find_by(id: params[:id])
   end
 
   def update

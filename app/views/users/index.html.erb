@@ -1,5 +1,18 @@
 <%= will_paginate %>
-<% @users.each do |u| %>
-  <li><%= "#{u.email}" %></li>
+<% @users.each do |user| %>
+  <li>
+    <%= link_to "#{user.email}", user %>
+    <% unless current_user == user %>
+      <% if friender = current_user.find_accepted_request(user) %>
+        <%= link_to "unfriend", friender, method: :delete, class: "btn btn-danger btn-xs" %>
+      <% elsif friender = current_user.request_sent(user) %>
+        <%= link_to "cancel", friender, method: :delete, class: "btn btn-warning btn-xs" %>
+      <% else %>
+        <%= link_to "friend", friendships_path(requester_id = current_user.id,
+                                               requested_id = user.id),
+                            method: :post, class: "btn btn-success btn-xs" %>
+      <% end %>
+    <% end %>
+  </li>
 <% end %>
 <%= will_paginate %>
