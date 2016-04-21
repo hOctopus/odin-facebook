@@ -3,14 +3,30 @@
   <li>
     <%= link_to "#{user.email}", user %>
     <% unless current_user == user %>
-      <% if friender = current_user.find_accepted_request(user) %>
-        <%= link_to "unfriend", friender, method: :delete, class: "btn btn-danger btn-xs" %>
-      <% elsif friender = current_user.request_sent(user) %>
-        <%= link_to "cancel", friender, method: :delete, class: "btn btn-warning btn-xs" %>
+      <% if current_user.friends_with?(user) %>
+        <%= link_to "unfriend",
+            friendship_path(current_user.find_friendship(user)),
+            method: :delete, class: "btn btn-warning btn-xs",
+            data: { confirm: "Confirm unfriend" } %>
+      <% elsif current_user.request_sent(user) %>
+        <%= link_to "cancel", friendship_path(current_user.request_sent(user)),
+            method: :delete, class: "btn btn-warning btn-xs",
+            data: { confirm: "Confirm cancel request" } %>
+      <% elsif current_user.request_received(user) %>
+        <%= link_to "accept",
+            friendship_path(current_user.request_received(user), accepted: true),
+            method: :patch, class: "btn btn-warning btn-xs",
+            data: { confirm: "Confirm accept friend request"} %>
+        <%= link_to "decline",
+            friendship_path(current_user.request_received(user)), method: :delete,
+            class: "btn btn-danger btn-xs",
+            data: { confirm: "Confirm decline friend request" } %>
       <% else %>
-        <%= link_to "friend", friendships_path(requester_id = current_user.id,
-                                               requested_id = user.id),
-                            method: :post, class: "btn btn-success btn-xs" %>
+        <%= form_for(current_user.friendships.build) do |f| %>
+          <%= hidden_field_tag :requester_id, current_user.id %>
+          <%= hidden_field_tag :requested_id, user.id %>
+          <%= f.submit "friend", class: "btn btn-success btn-xs" %>
+        <% end %>
       <% end %>
     <% end %>
   </li>

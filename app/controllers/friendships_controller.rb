@@ -5,9 +5,13 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.new(requested_id: params[:requested_id],
                                  requester_id: params[:requester_id],
                                  accepted: false)
-    @friendship.save
-    flash[:success] = "Friend request sent! :)"
-    redirect_to root_url
+    if @friendship.save
+      flash[:notice] = "Friend request sent! :)"
+      redirect_to users_path
+    else
+      flash[:alert] = "Something went wrong, try again"
+      redirect_to users_path
+    end
   end
 
   def update
@@ -15,32 +19,27 @@ class FriendshipsController < ApplicationController
     if params[:accepted] == 'true'
       @friendship.accepted = true
       @friendship.save
-      flash[:success] = "You are now friends!"
-      redirect_to root_url
+      flash[:notice] = "You are now friends!"
+      redirect_to users_path
     else
-      flash[:error] = "You can't do that."
-      redirect_to root_url
+      flash[:alert] = "You can't do that."
+      redirect_to users_path
     end
   end
 
   def destroy
     @friendship = Friendship.find_by(id: params[:id])
-    flash[:danger] = "You are no longer friends."
+    flash[:alert] = "You are no longer friends."
     @friendship.destroy
-    redirect_to root_url
-  end
-
-  def index
-    @friendship = Friendship.find_by(id: params[:id])
-    @friends = @user.friends.all.paginate(page: params[:page])
+    redirect_to users_path
   end
 
   private
     def friend_wanted?
       @friendship = Friendship.find_by(id: params[:id])
       unless current_user == @friendship.requested || current_user == @friendship.requester
-        flash[:danger] = "You don't have permission to do that."
-        redirect_to root_url
+        flash[:alert] = "You don't have permission to do that."
+        redirect_to users_path
       end
     end
 end
