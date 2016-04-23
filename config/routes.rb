@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get 'contact' => 'static_pages#contact'
 
   resources 'users'
-  resources 'friendships', only: [:create, :update, :destroy]
+  resources 'friendships',  only: [:create, :update, :destroy]
+  resources 'posts',        only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

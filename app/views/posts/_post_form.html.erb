@@ -1,0 +1,7 @@
+<h3>New Post</h3>
+<%= form_for @post do |f| #something screwy here with @posts, see users/show.html.erb %>
+  <div class="field">
+    <%= f.text_area :content %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary btn-sm" %>
+<% end %>
