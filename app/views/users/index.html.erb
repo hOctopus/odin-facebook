@@ -7,7 +7,7 @@
         <%= link_to "unfriend",
             friendship_path(current_user.find_friendship(user)),
             method: :delete, class: "btn btn-warning btn-xs",
-            data: { confirm: "Confirm unfriend" } %>
+            data: { confirm: "Confirm unfriend #{user.name}" } %>
       <% elsif current_user.request_sent(user) %>
         <%= link_to "cancel", friendship_path(current_user.request_sent(user)),
             method: :delete, class: "btn btn-warning btn-xs",
@@ -16,11 +16,11 @@
         <%= link_to "accept",
             friendship_path(current_user.request_received(user), accepted: true),
             method: :patch, class: "btn btn-warning btn-xs",
-            data: { confirm: "Confirm accept friend request"} %>
+            data: { confirm: "Confirm friend #{user.name}"} %>
         <%= link_to "decline",
             friendship_path(current_user.request_received(user)), method: :delete,
             class: "btn btn-danger btn-xs",
-            data: { confirm: "Confirm decline friend request" } %>
+            data: { confirm: "Confirm decline friend #{user.name}" } %>
       <% else %>
         <%= form_for(current_user.friendships.build) do |f| %>
           <%= hidden_field_tag :requester_id, current_user.id %>
