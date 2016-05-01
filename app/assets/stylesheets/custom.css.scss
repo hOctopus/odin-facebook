@@ -68,6 +68,8 @@ h2 {
   }
 }
 
+.navbar-nav > li > .dropdown-menu { background-color: white; }
+
 /* footer */
 
 footer {
@@ -119,7 +121,7 @@ footer {
 .flash_alert {
   background-color: $flash-red;
   border-color: #eed3d7;
-  color: $brand-primary;
+  color: white;
 }
 
 /* posts */

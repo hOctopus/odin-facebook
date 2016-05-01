@@ -7,11 +7,10 @@ class FriendshipsController < ApplicationController
                                  accepted: false)
     if @friendship.save
       flash[:notice] = "Friend request sent! :)"
-      redirect_to users_path
     else
       flash[:alert] = "Something went wrong, try again"
-      redirect_to users_path
     end
+    redirect_to root_path
   end
 
   def update
@@ -20,18 +19,17 @@ class FriendshipsController < ApplicationController
       @friendship.accepted = true
       @friendship.save
       flash[:notice] = "You are now friends!"
-      redirect_to users_path
     else
       flash[:alert] = "You can't do that."
-      redirect_to users_path
     end
+    redirect_to root_path
   end
 
   def destroy
     @friendship = Friendship.find_by(id: params[:id])
     flash[:alert] = "You are no longer friends."
     @friendship.destroy
-    redirect_to users_path
+    redirect_to root_path
   end
 
   private
@@ -39,7 +37,7 @@ class FriendshipsController < ApplicationController
       @friendship = Friendship.find_by(id: params[:id])
       unless current_user == @friendship.requested || current_user == @friendship.requester
         flash[:alert] = "You don't have permission to do that."
-        redirect_to users_path
+        redirect_to root_path
       end
     end
 end

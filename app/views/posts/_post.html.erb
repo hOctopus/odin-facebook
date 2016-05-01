@@ -1,4 +1,9 @@
 <li id="post-<%= post.id %>">
   <span class="content"><%= post.content %></span>
-  <span class="timestamp">Posted <%= time_ago_in_words(post.created_at) %> ago</span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(post.created_at) %> ago
+  </span>
+
+    <%= link_to "delete post", post_path(post.id), method: :delete,
+                               data: { confirm: "Delete post?" } %>
 </li>

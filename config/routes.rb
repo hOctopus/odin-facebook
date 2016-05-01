@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
 
   devise_for :users
+
+  resources 'users'
+  authenticated :user do
+    root to: 'users#current_user_home', as: :authenticated_root
+  end
+
   root 'static_pages#home'
   get 'help'    => 'static_pages#help'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
 
-  resources 'users'
+
   resources 'friendships',  only: [:create, :update, :destroy]
   resources 'posts',        only: [:create, :destroy]
 

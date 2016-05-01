@@ -10,10 +10,14 @@
               <span class="badge"><%= current_user.received_requests.count %></span>
               <span class="caret"></span>
             </a>
-
+            <ul class="dropdown-menu navbar-inverse" role="menu">
+              <% current_user.received_requests.each do |u| %>
+                <li><%= render 'users/user', user: u %></li>
+                <li class="divider"></li>
+              <% end %>
+            </ul>
           </li>
-          <li><%= link_to "Profile", current_user %></li>
-          <li><%= link_to "Browse users", users_path %></li>
+          <li><%= link_to "All users", users_path %></li>
         <% end %>
         <li><%= link_to "Home",     root_path %></li>
         <li><%= link_to "Help",     help_path %></li>
