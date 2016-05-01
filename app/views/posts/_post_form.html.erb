@@ -1,7 +1,6 @@
-<h3>New Post</h3>
-<%= form_for @post do |f| #something screwy here with @posts, see users/show.html.erb %>
+<%= form_for @user.posts.build do |f| %>
   <div class="field">
-    <%= f.text_area :content %>
+    <%= f.text_area :content, placeholder: "New post here" %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary btn-sm" %>
 <% end %>

@@ -1,5 +1,4 @@
-<div>
-  <%= will_paginate %>
-  <%= render 'posts/post_stub' %>
-  <%= will_paginate %>
-</div>
+<li id="post-<%= post.id %>">
+  <span class="content"><%= post.content %></span>
+  <span class="timestamp">Posted <%= time_ago_in_words(post.created_at) %></span>
+</li>

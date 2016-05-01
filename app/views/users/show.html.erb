@@ -1,12 +1,18 @@
-<%= render 'users/user_stub', user: @user %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <%= render 'users/user_stub', user: @user %>
+    </section>
+  </aside>
 <% if current_user == User.find_by(id: params[:id]) %>
-  <%= render 'posts/post_form' # something screwy here, see posts/_post_form.html.erb %>
+  <%= render 'posts/post_form' %>
 <% end %>
 <div class="col md-8">
   <% if @user.posts.any? %>
     <h3><%= @user.posts.count %> Posts</h3>
     <ol class="posts">
-      <%= render partial: 'posts/post', collection: @posts %>
+      <%= render @posts %>
     </ol>
+    <%= will_paginate @posts %>
   <% end %>
 </div>

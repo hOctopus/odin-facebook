@@ -1,9 +1,11 @@
 class PostsController < ApplicationController
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "Successful post!"
+    else
+      @feed_items = []
     end
     redirect_to current_user
   end
