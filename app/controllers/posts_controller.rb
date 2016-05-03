@@ -18,6 +18,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def index
+    @posts = Post.all.paginate(page: params[:page], per_page: 20)
+  end
+
   private
 
     def post_params

@@ -145,9 +145,23 @@ footer {
       padding: 5px 0;
     }
   }
-  .timestamp {
+  .info {
     color: $gray-light;
     display: block;
     margin-left: 60px;
+  }
+  .options {
+    color: blue;
+    display: inline;
+    ul {
+      overflow:hidden;
+      white-space:nowrap;
+      padding-left: 60px;
+    }
+    li {
+      border: none;
+      display:inline-block;
+      padding-right: 10px;
+    }
   }
 }

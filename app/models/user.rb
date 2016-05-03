@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
                                 source:   :requester
 
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post, dependent: :destroy
 
   def friends_with?(other_user)
     friends.include?(other_user) || mutual_friends.include?(other_user)

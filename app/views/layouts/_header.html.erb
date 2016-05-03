@@ -2,11 +2,15 @@
   <div class="container">
     <%= link_to "Odin Facebook", root_path, class: "logo" %>
     <nav>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-left">
         <% if user_signed_in? %>
           <li>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              <span class="glyphicon glyphicon-heart"></span>
+              <% if current_user.received_requests.count > 0 %>
+                <span class="glyphicon glyphicon-heart" style="color:red"></span>
+              <% else %>
+                <span class="glyphicon glyphicon-heart" style="color:blue"></span>
+              <% end %>
               <span class="badge"><%= current_user.received_requests.count %></span>
               <span class="caret"></span>
             </a>
@@ -17,9 +21,12 @@
               <% end %>
             </ul>
           </li>
-          <li><%= link_to "All users", users_path %></li>
+          <li><%= link_to "Browse all users", users_path %></li>
         <% end %>
-        <li><%= link_to "Home",     root_path %></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home",   root_path %></li>
+        <li><%= link_to "Feed",     posts_path %></li>
         <li><%= link_to "Help",     help_path %></li>
         <li><%= link_to "About",    about_path %></li>
         <li><%= link_to "Contact",  contact_path %></li>
