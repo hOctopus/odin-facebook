@@ -1,10 +1,21 @@
 <li>
   <% post.comments.each do |c| %>
-      <span class="content"><%= c.content %></span>
-      <span class="info">
-        <%= "Posted #{time_ago_in_words(c.created_at)} ago" unless c.created_at.blank? %>
-        <%= " by #{c.user.email}" unless c.user.nil? %>
-        <br />
+    <span class="content"><%= c.content %></span>
+    <span class="info">
+      <%= "Posted #{time_ago_in_words(c.created_at)} ago" unless c.created_at.blank? %>
+      <%= " by #{c.user.email}" unless c.user.nil? %>
+      <br />
+    </span>
+    <% if current_user.comments.include?(c) %>
+      <span class="options">
+        <ul>
+          <li>
+            <%= link_to "delete comment", comment_path(c.id), method: :delete,
+                                          class: "btn btn-xs btn-danger",
+                                          data: { confirm: "Delete comment?" } %>
+          </li>
+        </ul>
       </span>
+    <% end %>
   <% end %>
 </li>

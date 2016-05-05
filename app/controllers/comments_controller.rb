@@ -12,8 +12,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    post_id = params[:id]
-    @comment = current_user.comments.find_by(post_id)
+    @comment = current_user.comments.find_by(id: params[:id])
 
     if @comment.destroy
       flash[:notice] = "Comment deleted!"
