@@ -1,5 +1,5 @@
 <li id="post-<%= post.id %>">
-  <% if current_user.friends.include?(post.user) %>
+  <% if current_user.friends.include?(post.user) || current_user.mutual_friends.include?(post.user) || current_user.posts.include?(post) %>
     <span class="content"><%= post.content %></span>
     <span class="info">
       Posted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.email %>

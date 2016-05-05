@@ -6,13 +6,15 @@
       <%= " by #{c.user.email}" unless c.user.nil? %>
       <br />
     </span>
-    <% if current_user.comments.include?(c) %>
+    <% if current_user.comments.include?(c) || current_user.posts.include?(post) %>
       <span class="options">
         <ul>
           <li>
-            <%= link_to "delete comment", comment_path(c.id), method: :delete,
-                                          class: "btn btn-xs btn-danger",
-                                          data: { confirm: "Delete comment?" } %>
+            <% unless c.id.nil? %>
+              <%= link_to "delete comment", comment_path(c.id), method: :delete,
+                                            class: "btn btn-xs btn-danger",
+                                            data: { confirm: "Delete comment?" } %>
+                                            <% end %>
           </li>
         </ul>
       </span>
