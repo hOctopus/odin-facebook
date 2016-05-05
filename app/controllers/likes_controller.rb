@@ -6,11 +6,11 @@ class LikesController < ApplicationController
 
     if @like.save
       flash[:notice] = "You like that post!"
-      redirect_to posts_path
+
     else
       flash[:alert] = "Something went wrong!"
-      redirect_to root_path
     end
+    redirect_to posts_path
   end
 
   def destroy
@@ -19,10 +19,9 @@ class LikesController < ApplicationController
 
     if @like.destroy
       flash[:notice] = "You no longer like that post"
-      redirect_to posts_path
     else
       flash[:alert] = "Something went wrong!"
-      redirect_to root_path
     end
+    redirect_to posts_path
   end
 end

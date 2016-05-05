@@ -1,25 +1,35 @@
 <li id="post-<%= post.id %>">
-  <span class="content"><%= post.content %></span>
-  <span class="info">
-    Posted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.email %>
-    <br />
-    Likes: <%= post.liking_users.count %><br />
-    <% if post.liking_users.count > 0 %>
-      Liked by <%= "#{post.liking_users.pluck(:email).join(', ')}" %><br />
-    <% end %>
-  </span>
-  <% if user_signed_in? %>
-    <span class="options">
-      <ul>
-        <li><%= render 'shared/like_stub', post: post %></li>
-        <li>
-          <% if current_user.posts.include?(post) %>
-            <%= link_to "delete post", post_path(post.id), method: :delete,
-                                       class: "btn btn-xs btn-danger",
-                                       data: { confirm: "Delete post?" } %>
-          <% end %>
-        </li>
-      </ul>
+  <% if current_user.friends.include?(post.user) %>
+    <span class="content"><%= post.content %></span>
+    <span class="info">
+      Posted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.email %>
+      <br />
+      Likes: <%= post.liking_users.count %><br />
+      <% if post.liking_users.count > 0 %>
+        Liked by <%= "#{post.liking_users.pluck(:email).join(', ')}" %><br />
+      <% end %>
+      Comments: <%= post.comments.count %><br />
+      <% if post.comments.count > 0 %>
+        Comments by <%= "#{post.commenting_users.pluck(:email).join(', ')}" %><br />
+      <% end %>
     </span>
+    <% if user_signed_in? %>
+      <span class="options">
+        <ul>
+          <li><%= render 'shared/like_stub', post: post %></li>
+          <li>
+            <% if current_user.posts.include?(post) %>
+              <%= link_to "delete post", post_path(post.id), method: :delete,
+                                         class: "btn btn-xs btn-danger",
+                                         data: { confirm: "Delete post?" } %>
+            <% end %>
+          </li>
+        </ul>
+      </span>
+      <span class="content">
+        <%= render 'comments/comment_form', post: post %>
+        <%= render 'comments/comment', post: post %>
+      </span>
+    <% end %>
   <% end %>
 </li>

@@ -5,17 +5,19 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = "Successful post!"
     else
-      @feed_items = []
+      flash[:alert] = "Something went wrong!"
     end
-    redirect_to current_user
+    redirect_to root_url
   end
 
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
       flash[:alert] = "Post deleted!"
-      redirect_to root_url
+    else
+      flash[:alert] = "Something went wrong!"
     end
+    redirect_to root_url
   end
 
   def index

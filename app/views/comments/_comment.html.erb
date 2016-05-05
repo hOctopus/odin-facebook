@@ -1,0 +1,10 @@
+<li>
+  <% post.comments.each do |c| %>
+      <span class="content"><%= c.content %></span>
+      <span class="info">
+        <%= "Posted #{time_ago_in_words(c.created_at)} ago" unless c.created_at.blank? %>
+        <%= " by #{c.user.email}" unless c.user.nil? %>
+        <br />
+      </span>
+  <% end %>
+</li>
