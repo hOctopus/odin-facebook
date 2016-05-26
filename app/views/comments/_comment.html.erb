@@ -17,7 +17,6 @@
         <ul>
           <li>
             <% unless c.id.nil? %>
-
               <%= link_to "delete comment", comment_path(c.id), method: :delete,
                                             class: "btn btn-xs btn-danger",
                                             data: { confirm: "Delete comment?" } %>

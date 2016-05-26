@@ -1,24 +1,26 @@
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <%= render 'users/user_stub', user: @user %>
-    </section>
-  </aside>
+<h1>
+  <%= gravatar_for @user %><br />
+  <%= @user.email %>
+</h1>
+
 <% if current_user == User.find_by(id: params[:id]) %>
+  <h3>What's on your mind?</h3>
   <%= render 'posts/post_form' %>
 <% end %>
+<br /><br />
 <div class="col md-8">
   <% if @friends %>
-    <h3>Friends (<%= @friends.count %>)</h3>
+    <h4>Friends (<%= @friends.count %>)</h4>
     <% @friends.each do |fr| %>
       <%= render 'users/user', user: fr %>
     <% end %>
     <%= will_paginate @friends %>
   <% end %>
+<br /><br />
 </div>
 <div class="col md-8">
   <% if @user.posts.any? %>
-    <h3>Posts (<%= @user.posts.count %>) </h3>
+    <h4>Posts (<%= @user.posts.count %>) </h4>
     <ol class="posts">
       <%= render @posts %>
     </ol>
