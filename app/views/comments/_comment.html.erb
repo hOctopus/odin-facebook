@@ -1,6 +1,12 @@
 <li>
   <% post.comments.each do |c| %>
-    <span class="content"><%= c.content %></span>
+    <span class="content"><%= c.content %>
+      <!-- this block allows liking/unliking comments -->
+      <% unless c.content.nil? %>
+        <%= render 'shared/like_stub', post: c %>
+      <% end %>
+      <!-- if weird stuff happens when liking comments, remove/retool this -->
+    </span>
     <span class="info">
       <%= "Posted #{time_ago_in_words(c.created_at)} ago" unless c.created_at.blank? %>
       <%= " by #{c.user.email}" unless c.user.nil? %>
@@ -11,6 +17,7 @@
         <ul>
           <li>
             <% unless c.id.nil? %>
+
               <%= link_to "delete comment", comment_path(c.id), method: :delete,
                                             class: "btn btn-xs btn-danger",
                                             data: { confirm: "Delete comment?" } %>
