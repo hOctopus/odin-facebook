@@ -5,7 +5,7 @@ class LikesController < ApplicationController
     @like = current_user.likes.build(post_id: params[:id])
 
     if @like.save
-      flash[:notice] = "You like that post!"
+      flash[:notice] = "Liked!"
 
     else
       flash[:alert] = "Something went wrong!"
@@ -18,7 +18,7 @@ class LikesController < ApplicationController
     @like = current_user.likes.find_by_id(post_id)
 
     if @like.destroy
-      flash[:notice] = "You no longer like that post"
+      flash[:notice] = "Un-liked!"
     else
       flash[:alert] = "Something went wrong!"
     end

@@ -8,8 +8,10 @@
       <!-- if weird stuff happens when liking comments, remove/retool this -->
     </span>
     <span class="info">
-      <%= "Posted #{time_ago_in_words(c.created_at)} ago" unless c.created_at.blank? %>
-      <%= " by #{c.user.email}" unless c.user.nil? %>
+      <% unless c.user.nil? && c.created_at.blank? %>
+        <%= link_to gravatar_for(post.user, size: 20), post.user %>
+        <%= "Posted #{time_ago_in_words(c.created_at)} ago by #{c.user.email}" %>
+      <% end %>
       <br />
     </span>
     <% if current_user.comments.include?(c) || current_user.posts.include?(post) %>
