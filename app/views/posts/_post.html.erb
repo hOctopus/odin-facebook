@@ -4,6 +4,7 @@
        current_user.posts.include?(post) %>
     <span class="content"><%= post.content %></span>
     <span class="info">
+      <%= link_to gravatar_for(post.user, size: 20), post.user %>
       Posted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.email %>
       <br />
       Likes: <%= post.liking_users.count %><br />
