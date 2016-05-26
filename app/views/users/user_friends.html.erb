@@ -1,0 +1,9 @@
+<div class="col md-8">
+  <% if @friends %>
+    <h4>Friends (<%= @friends.count %>)</h4>
+    <% @friends.each do |fr| %>
+      <%= render 'users/user', user: fr %>
+    <% end %>
+    <%= will_paginate @friends %>
+  <% end %>
+</div>

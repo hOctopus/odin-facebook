@@ -22,6 +22,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.paginate(page: params[:page], per_page: 20)
+    @users = []
+    @posts.each do |p|
+      @users.push(p.user) unless @users.include?(p.user)
+    end
   end
 
   private

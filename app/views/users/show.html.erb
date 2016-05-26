@@ -1,4 +1,3 @@
-
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -15,16 +14,6 @@
   <%= render 'posts/post_form' %>
 <% end %>
 <br /><br />
-<div class="col md-8">
-  <% if @friends %>
-    <h4>Friends (<%= @friends.count %>)</h4>
-    <% @friends.each do |fr| %>
-      <%= render 'users/user', user: fr %>
-    <% end %>
-    <%= will_paginate @friends %>
-  <% end %>
-<br /><br />
-</div>
 <div class="col md-8">
   <% if @user.posts.any? %>
     <h4>Posts (<%= @user.posts.count %>) </h4>

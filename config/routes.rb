@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   authenticated :user do
     resources 'users'
+    resources 'users' do
+      member do
+        get 'user_friends'
+      end
+    end
     resources 'friendships',  only: [:create, :update, :destroy]
     resources 'posts',        only: [:create, :destroy]
     resources 'likes',        only: [:create, :destroy]

@@ -1,3 +1,7 @@
+<h3>
+  <%= pluralize(@posts.count, 'post') %>
+  by <%= pluralize(@users.count, 'user') %>
+</h3>
 <div class="col md-8">
   <ol class="posts">
     <%= will_paginate %>

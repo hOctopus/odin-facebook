@@ -21,6 +21,7 @@
               <% end %>
             </ul>
           </li>
+          <li><%= link_to "Friends", user_friends_user_path(current_user) %></li>
           <li><%= link_to "Timeline",         posts_path %></li>
           <li><%= link_to "Browse all users", users_path %></li>
         <% end %>

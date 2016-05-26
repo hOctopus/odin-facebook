@@ -32,6 +32,15 @@ class FriendshipsController < ApplicationController
     redirect_to root_path
   end
 
+  def index
+    @user = User.find_by_id(:user_id)
+    if @user.friends.count > 0
+      @friends = @user.friends.paginate(page: params[:page], per_page: 3)
+    elsif @user.mutual_friends.count > 0
+      @friends = @user.mutual_friends.paginate(page: params[:page], per_page: 3)
+    end
+  end
+
   private
     def friend_wanted?
       @friendship = Friendship.find_by(id: params[:id])
