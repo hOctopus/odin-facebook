@@ -19,7 +19,8 @@ Devise.setup do |config|
 
   # ==> Omniauth configuration
   config.omniauth :facebook, ENV["APP_ID"], ENV["APP_SECRET"],
-                             callback_url: 'http://localhost:3000/users/auth/facebook'
+                             callback_url: 'http://localhost:3000/users/auth/facebook',
+                             scope: 'email', info_fields: 'email'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
