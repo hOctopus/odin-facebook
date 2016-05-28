@@ -17,6 +17,10 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
+  # ==> Omniauth configuration
+  config.omniauth :facebook, ENV["APP_ID"], ENV["APP_SECRET"],
+                             callback_url: 'http://localhost:3000/users/auth/facebook'
+
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be

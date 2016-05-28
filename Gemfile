@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 ruby '2.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'figaro'
 # Flexible authentication system for Rails across the entire stack
 gem 'devise'
+# Library that standardizes multi-provider authentication for web applications
+gem 'omniauth-facebook'
 # Open emails in browser
 gem 'letter_opener'
 # Allow pagination
